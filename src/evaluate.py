@@ -24,7 +24,7 @@ def evaluate_model(model,X_test,y_test,model_name: str) -> dict:
     }
 
 
-def save_metrix(results: list[dict], path: str = "/results,metrics.json"):
+def save_metrics(results: list[dict], path: str = "/results,metrics.json"):
     os.makedirs(os.path.dirname(path),exist_ok=True)
     with open (path,"w") as f:
         json.dump(results,f,indent=2)
