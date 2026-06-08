@@ -31,21 +31,24 @@ def plot_class_distribution(df,path = None):
     plt.tight_layout()
     _save_or_show(path)
 
-def plot_feature_distributions(df,path=None):
-    features = df.drop(columns = ["target"]).columns
-    fig,axes = plt.subplots(4,4,figsize=(16,12))
+def plot_feature_distributions(df, path=None):
+    features = df.drop(columns=["target"]).columns
+    n = len(features)
+    ncols = 4
+    nrows = int(np.ceil(n / ncols))          
+    fig, axes = plt.subplots(nrows, ncols, figsize=(16, 3.5 * nrows))
     axes = axes.flatten()
 
-    for i,col in enumerate(features):
-        for cls,color,label in [(0,"steelblue","Zdrowy"),(1,"Tomato","Chory")]:
+    for i, col in enumerate(features):
+        for cls, color, label in [(0, "steelblue", "Zdrowy"), (1, "Tomato", "Chory")]:
             axes[i].hist(df[df["target"] == cls][col].dropna(),
-                         alpha = 0.5, color=color,label=label,bins=20)
+                         alpha=0.5, color=color, label=label, bins=20)
         axes[i].set_title(col)
         axes[i].legend()
-    for j in range(i+1,len(axes)):
+    for j in range(i + 1, len(axes)): 
         axes[j].set_visible(False)
 
-    plt.suptitle("Rozklad cech wedlug klasy", y = 1.02)
+    plt.suptitle("Rozklad cech wedlug klasy", y=1.02)
     plt.tight_layout()
     _save_or_show(path)
 
